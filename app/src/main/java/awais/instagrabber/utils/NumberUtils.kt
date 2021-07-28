@@ -2,6 +2,7 @@
 
 package awais.instagrabber.utils
 
+import java.text.DecimalFormat
 import java.util.*
 import kotlin.math.ln
 import kotlin.math.pow
@@ -69,11 +70,12 @@ fun abbreviate(number: Long, options: AbbreviateOptions? = null): String {
     // adapted from https://stackoverflow.com/a/9769590/1436766
     var threshold = 1000
     var addSpace = false
+    var decimalFormat = DecimalFormat("###,###")
     if (options != null) {
         threshold = options.threshold
         addSpace = options.addSpaceBeforePrefix
     }
-    if (number < threshold) return "" + number
+    if (number < threshold) return "" + decimalFormat.format(number)
     val exp = (ln(number.toDouble()) / ln(threshold.toDouble())).toInt()
     return String.format(
         Locale.US,
