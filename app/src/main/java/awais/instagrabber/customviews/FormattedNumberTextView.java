@@ -13,6 +13,8 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.Duration;
 
 import awais.instagrabber.customviews.helpers.ChangeText;
@@ -156,10 +158,15 @@ public class FormattedNumberTextView extends AppCompatTextView {
                 setText(NumberUtils.abbreviate(number, null));
                 return;
             }
-            setText(String.valueOf(number));
+            setText(numberFormatter(number));
             if (autoToggleToAbbreviation) {
                 getHandler().postDelayed(() -> setShowAbbreviation(true), autoToggleTimeoutMs);
             }
         });
+    }
+
+    private String numberFormatter(long number){
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        return decimalFormat.format(number);
     }
 }
